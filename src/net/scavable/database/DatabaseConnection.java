@@ -1,0 +1,28 @@
+package net.scavable.database;
+//Classes
+import net.scavable.main.Main;
+import net.scavable.gui.LoginGUI;
+
+//Libraries
+import java.sql.*;
+
+public class DatabaseConnection {
+    public static Connection con;
+    public DatabaseConnection(String user, String password) throws SQLException {
+        String url = "jdbc:mysql://localhost/";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, password);
+            LoginGUI.valid = true;
+            Main.Validation();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+
+            String[] temp = e.getMessage().split("@");
+            System.out.println(temp[0]);
+            temp = null;
+            System.gc();
+        }
+    }
+}
