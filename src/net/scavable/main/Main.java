@@ -9,7 +9,7 @@ public class Main {
     static LoginGUI loginGUI;
 
     public static void main(String[] args) {
-        new Setup();
+        Setup.Setup();
         new DatabaseSetup();
         loginGUI = new LoginGUI();
 
