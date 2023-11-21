@@ -1,6 +1,6 @@
-package net.scavable.gui;
+package student.management.gui;
 
-import net.scavable.database.DatabaseSetup;
+import student.management.database.DatabaseSetup;
 
 import javax.swing.*;
 import java.awt.*;

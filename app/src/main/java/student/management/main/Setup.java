@@ -1,4 +1,4 @@
-package net.scavable.main;
+package student.management.main;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,8 +14,9 @@ public class Setup {
         try {
             FileWriter fw;
             BufferedWriter bw;
+            boolean status;
             if (!startService.exists()) {
-                boolean status = startService.createNewFile();
+                status = startService.createNewFile();
                 fw = new FileWriter(startService);
                 bw = new BufferedWriter(fw);
                 bw.write("""
@@ -71,7 +72,7 @@ public class Setup {
                 fw.close();
             }
             if (!stopService.exists()) {
-                boolean status = stopService.createNewFile();
+                status = stopService.createNewFile();
                 fw = new FileWriter(stopService);
                 bw = new BufferedWriter(fw);
                 bw.write("""

@@ -1,7 +1,7 @@
-package net.scavable.database;
+package student.management.database;
 //Classes
-import net.scavable.main.Main;
-import net.scavable.gui.LoginGUI;
+import student.management.main.Main;
+import student.management.gui.LoginGUI;
 
 //Libraries
 import java.sql.*;

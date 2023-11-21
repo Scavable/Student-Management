@@ -1,8 +1,8 @@
-package net.scavable.main;
+package student.management.main;
 
-import net.scavable.database.DatabaseSetup;
-import net.scavable.gui.GUI;
-import net.scavable.gui.LoginGUI;
+import student.management.database.DatabaseSetup;
+import student.management.gui.GUI;
+import student.management.gui.LoginGUI;
 
 public class Main {
 

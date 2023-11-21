@@ -1,4 +1,4 @@
-package net.scavable.database;
+package student.management.database;
 
 import javax.swing.*;
 import java.io.*;
@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class DatabaseSetup {
@@ -16,6 +17,13 @@ public class DatabaseSetup {
 
     public DatabaseSetup() {
         StartService();
+
+        Properties properties = new Properties();
+        try {
+            properties.load(this.getClass().getClassLoader().getResourceAsStream("variables.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         String url1 = "jdbc:mysql://localhost/students";
         String url2 = "jdbc:mysql://localhost/";
