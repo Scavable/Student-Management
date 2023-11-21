@@ -6,4 +6,4 @@
 # Ignore Gradle build output directory
 build
 
-variables.properties
+app/src/main/resources/variables.properties
