@@ -1,6 +1,7 @@
 package student.management.gui;
 
 import student.management.database.DatabaseSetup;
+import student.management.gui.actions.ButtonActions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,18 +10,20 @@ import java.awt.event.WindowEvent;
 
 public class GUI {
     JFrame frame = new JFrame("Student Management System");
-    JPanel panelSelect = new JPanel();
+
     JPanel panelInfo = new JPanel();
     JScrollPane scrollPaneSelect = new JScrollPane();
     JScrollPane scrollPaneInfo = new JScrollPane();
 
     public GUI(){
+        JPanel panelSelect = new JPanel();
+
         scrollPaneBehavior();
         scrollPaneInfoBehavior();
         scrollPaneSelectBehavior();
-        panelSelectBehavior();
+        panelSelectBehavior(panelSelect);
         panelInfoBehavior();
-        frameBehavior();
+        frameBehavior(panelSelect);
     }
 
     private void scrollPaneSelectBehavior() {
@@ -38,7 +41,7 @@ public class GUI {
         scrollPaneInfo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     }
 
-    private void frameBehavior() {
+    private void frameBehavior(JPanel panelSelect) {
         frame.addWindowStateListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -61,10 +64,21 @@ public class GUI {
 
     }
 
-    private void panelSelectBehavior() {
+    private void panelSelectBehavior(JPanel panelSelect) {
         panelSelect.setLayout(new GridLayout(0,1));
-        panelSelect.add(new JButton("Enrool"));
-        panelSelect.add(new JButton("Un-Enroll"));
+
+        JButton enroll = new JButton("Enroll");
+        JButton unenroll = new JButton("Un-enroll");
+        JButton view = new JButton("View");
+
+        enroll.addActionListener(ButtonActions.enrollAction());
+        unenroll.addActionListener(ButtonActions.unenrollAction());
+        view.addActionListener(ButtonActions.viewAction());
+
+        panelSelect.add(enroll);
+        panelSelect.add(unenroll);
+        panelSelect.add(view);
+
 
     }
 }

@@ -4,25 +4,42 @@ import student.management.main.Main;
 import student.management.gui.LoginGUI;
 
 //Libraries
+import java.io.IOException;
 import java.sql.*;
+import java.util.Properties;
 
 public class DatabaseConnection {
     public static Connection con;
+    static Properties properties = new Properties();
     public DatabaseConnection(String user, String password) throws SQLException {
-        String url = "jdbc:mysql://localhost/";
+
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url, user, password);
-            LoginGUI.valid = true;
+            properties.load(this.getClass().getClassLoader().getResourceAsStream("Info.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            con = DriverManager.getConnection(properties.getProperty("databaseStudentManagement"), user, password);
+
+            if(con.isValid(5))
+                LoginGUI.valid = true;
             Main.Validation();
-            con.close();
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
 
             String[] temp = e.getMessage().split("@");
             System.out.println(temp[0]);
-            temp = null;
-            System.gc();
         }
+    }
+
+    public static ResultSet Query(String query) throws SQLException {
+
+        ResultSet rs = con.createStatement().executeQuery(query);
+        while(rs.next()){
+            System.out.println(rs.getString(1));
+        }
+
+        return null;
     }
 }

@@ -44,7 +44,6 @@ public class LoginGUI {
         tfUsername.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                //super.keyReleased(e);
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
                     try {
                         new DatabaseConnection(tfUsername.getText(), tfPassword.getText());
@@ -58,7 +57,6 @@ public class LoginGUI {
         tfPassword.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                //super.keyReleased(e);
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
                     try {
                         new DatabaseConnection(tfUsername.getText(), tfPassword.getText());

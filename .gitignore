@@ -5,6 +5,3 @@
 
 # Ignore Gradle build output directory
 /build/
-
-/src/main/resources/variables.properties
-#*.properties

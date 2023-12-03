@@ -23,7 +23,7 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
 
-    implementation "com.mysql:mysql-connector-j:8.1.0"
+    implementation 'mysql:mysql-connector-java:8.0.19'
 }
 
 application {

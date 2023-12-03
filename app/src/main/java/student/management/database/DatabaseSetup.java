@@ -2,10 +2,7 @@ package student.management.database;
 
 import javax.swing.*;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -20,23 +17,22 @@ public class DatabaseSetup {
 
         Properties properties = new Properties();
         try {
-            properties.load(this.getClass().getClassLoader().getResourceAsStream("variables.properties"));
+            properties.load(this.getClass().getClassLoader().getResourceAsStream("Info.properties"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        String url1 = "jdbc:mysql://localhost/students";
-        String url2 = "jdbc:mysql://localhost/";
-
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(url1, "root", "");
-            System.out.println("Connect successful to schema");
-        } catch (ClassNotFoundException | SQLException e) {
+            con = DriverManager.getConnection(properties.getProperty("databaseStudentManagement"), properties.getProperty("userRoot"), properties.getProperty("userRootPassword"));
+            if(con != null)
+                System.out.println("Connect successful to schema");
+            CreateTables();
+        } catch (SQLException e) {
             try {
-                con = DriverManager.getConnection(url2, "root", "");
+                con = DriverManager.getConnection(properties.getProperty("databaseRoot"), properties.getProperty("userRoot"), properties.getProperty("userRootPassword"));
                 Statement stat = con.createStatement();
-                int status = stat.executeUpdate("Create Schema test_schema");
+                int status = stat.executeUpdate("Create Schema student_management");
+                System.out.println(status);
                 System.out.println("Connection successful to database: created schema");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -45,12 +41,32 @@ public class DatabaseSetup {
             try {
                 if(con.isValid(0)) {
                     con.close();
-                    System.out.println("Connection closed");
+                    System.out.println("Database setup connection closed");
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
+    }
+
+    private void CreateTables() {
+        System.out.println("Create Tables Method");
+        String studentsTable = """
+                Create Table students (
+                    id int primary key auto_increment,
+                    first_name varchar(25) not null,
+                    last_name varchar(25) not null
+                );
+                """;
+        try {
+            ResultSet rs = con.createStatement().executeQuery("show tables;");
+            if(!rs.next()){
+                con.createStatement().executeUpdate(studentsTable);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private static void StartService() {
