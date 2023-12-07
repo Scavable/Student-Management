@@ -8,14 +8,14 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class GUI {
+public class StudentManagementWindow {
     JFrame frame = new JFrame("Student Management System");
 
     JPanel panelInfo = new JPanel();
     JScrollPane scrollPaneSelect = new JScrollPane();
     JScrollPane scrollPaneInfo = new JScrollPane();
 
-    public GUI(){
+    public StudentManagementWindow(){
         JPanel panelSelect = new JPanel();
 
         scrollPaneBehavior();

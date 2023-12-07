@@ -1,7 +1,7 @@
 package student.management.database;
 //Classes
 import student.management.main.StudentManagement;
-import student.management.gui.LoginGUI;
+import student.management.gui.LoginWindow;
 
 //Libraries
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class DatabaseConnection {
             con = DriverManager.getConnection(properties.getProperty("databaseStudentManagement"), user, password);
 
             if(con.isValid(5))
-                LoginGUI.valid = true;
+                LoginWindow.valid = true;
             StudentManagement.Validation();
         } catch (SQLException e) {
             e.printStackTrace();

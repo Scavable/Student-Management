@@ -1,15 +1,15 @@
 package student.management.main;
 
 import student.management.database.DatabaseSetup;
-import student.management.gui.GUI;
-import student.management.gui.LoginGUI;
+import student.management.gui.StudentManagementWindow;
+import student.management.gui.LoginWindow;
 
 import java.io.IOException;
 import java.util.Properties;
 
 public class StudentManagement {
 
-    static LoginGUI loginGUI;
+    static LoginWindow loginWindow;
 
     public static void main(String[] args) {
         Properties properties = new Properties();
@@ -22,14 +22,14 @@ public class StudentManagement {
 
         Setup.Setup();
         new DatabaseSetup(properties);
-        loginGUI = new LoginGUI();
+        loginWindow = new LoginWindow();
 
     }
     public static void Validation(){
 
-        if(LoginGUI.valid) {
-            loginGUI.getFrame().dispose();
-            new GUI();
+        if(LoginWindow.valid) {
+            loginWindow.getFrame().dispose();
+            new StudentManagementWindow();
         }
     }
 }

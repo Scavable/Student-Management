@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-public class LoginGUI {
+public class LoginWindow {
 
     private JFrame frame = new JFrame("Login");
     private JLabel labelUsername = new JLabel("Username:");
@@ -18,7 +18,7 @@ public class LoginGUI {
     private JTextField tfPassword = new JTextField();
     public static boolean valid = false;
 
-    public LoginGUI(){
+    public LoginWindow(){
 
         loginGUIListeners();
         frameBehavior();
