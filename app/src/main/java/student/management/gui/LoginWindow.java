@@ -10,12 +10,12 @@ import java.sql.SQLException;
 
 public class LoginWindow {
 
-    private JFrame frame = new JFrame("Login");
-    private JLabel labelUsername = new JLabel("Username:");
-    private JLabel labelPassword = new JLabel("Password:");
-    private JButton buttonSubmit = new JButton("Submit");
-    private JTextField tfUsername = new JTextField();
-    private JTextField tfPassword = new JTextField();
+    private final JFrame frame = new JFrame("Login");
+    private final JLabel labelUsername = new JLabel("Username:");
+    private final JLabel labelPassword = new JLabel("Password:");
+    private final JButton buttonSubmit = new JButton("Submit");
+    private final JTextField tfUsername = new JTextField();
+    private final JTextField tfPassword = new JTextField();
     public static boolean valid = false;
 
     public LoginWindow(){
@@ -26,6 +26,7 @@ public class LoginWindow {
     }
 
     private void loginGUIListeners() {
+
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.out.println("Frame closing");
@@ -70,7 +71,6 @@ public class LoginWindow {
     }
 
     private void frameBehavior() {
-
 
         frame.getContentPane().setLayout(new GridLayout(0,2));
         frame.setPreferredSize(new Dimension(300,200));

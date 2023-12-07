@@ -22,9 +22,14 @@ public class DatabaseConnection {
         try {
             con = DriverManager.getConnection(properties.getProperty("databaseStudentManagement"), user, password);
 
-            if(con.isValid(5))
+            if(con.isValid(5)){
                 LoginWindow.valid = true;
+                User.setUser(user);
+                User.setCon(con);
+            }
+
             StudentManagement.Validation();
+
         } catch (SQLException e) {
             e.printStackTrace();
 

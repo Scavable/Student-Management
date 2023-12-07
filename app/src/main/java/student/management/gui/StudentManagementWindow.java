@@ -1,12 +1,14 @@
 package student.management.gui;
 
 import student.management.database.DatabaseSetup;
+import student.management.database.User;
 import student.management.gui.actions.ButtonActions;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 public class StudentManagementWindow {
     JFrame frame = new JFrame("Student Management System");
@@ -45,6 +47,12 @@ public class StudentManagementWindow {
         frame.addWindowStateListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                try {
+                    if(User.getCon().isValid(5))
+                        User.getCon().close();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
                 DatabaseSetup.StopService();
             }
         });
