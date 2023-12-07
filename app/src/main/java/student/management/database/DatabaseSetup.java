@@ -7,20 +7,13 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class DatabaseSetup {
-    private static String serviceName = "MySQL80";
+    private static final String serviceName = "MySQL80";
     static String workingDirectory = System.getProperty("user.dir");
 
     Connection con;
 
-    public DatabaseSetup() {
+    public DatabaseSetup(Properties properties) {
         StartService();
-
-        Properties properties = new Properties();
-        try {
-            properties.load(this.getClass().getClassLoader().getResourceAsStream("Info.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         try {
             con = DriverManager.getConnection(properties.getProperty("databaseStudentManagement"), properties.getProperty("userRoot"), properties.getProperty("userRootPassword"));
@@ -30,21 +23,20 @@ public class DatabaseSetup {
         } catch (SQLException e) {
             try {
                 con = DriverManager.getConnection(properties.getProperty("databaseRoot"), properties.getProperty("userRoot"), properties.getProperty("userRootPassword"));
-                Statement stat = con.createStatement();
-                int status = stat.executeUpdate("Create Schema student_management");
-                System.out.println(status);
-                System.out.println("Connection successful to database: created schema");
+                int status = con.createStatement().executeUpdate("Create Schema student_management");
+                if(status == 1)
+                    System.out.println("Connection successful to database: created schema");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }finally {
             try {
-                if(con.isValid(0)) {
+                if(con != null && con.isValid(0)) {
                     con.close();
                     System.out.println("Database setup connection closed");
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                System.exit(1);
             }
         }
     }

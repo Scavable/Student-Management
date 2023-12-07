@@ -1,6 +1,6 @@
 package student.management.database;
 //Classes
-import student.management.main.Main;
+import student.management.main.StudentManagement;
 import student.management.gui.LoginGUI;
 
 //Libraries
@@ -24,7 +24,7 @@ public class DatabaseConnection {
 
             if(con.isValid(5))
                 LoginGUI.valid = true;
-            Main.Validation();
+            StudentManagement.Validation();
         } catch (SQLException e) {
             e.printStackTrace();
 
