@@ -11,6 +11,7 @@ import java.util.Properties;
 public class DatabaseConnection {
     public static Connection con;
     static Properties properties = new Properties();
+
     public DatabaseConnection(String user, String password) throws SQLException {
 
         try {

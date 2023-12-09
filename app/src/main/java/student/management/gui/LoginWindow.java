@@ -5,7 +5,10 @@ import student.management.database.DatabaseSetup;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 public class LoginWindow {
@@ -18,7 +21,7 @@ public class LoginWindow {
     private final JTextField tfPassword = new JTextField();
     public static boolean valid = false;
 
-    public LoginWindow(){
+    public LoginWindow() {
 
         loginGUIListeners();
         frameBehavior();
@@ -45,7 +48,7 @@ public class LoginWindow {
         tfUsername.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
                         new DatabaseConnection(tfUsername.getText(), tfPassword.getText());
                     } catch (SQLException throwables) {
@@ -56,9 +59,10 @@ public class LoginWindow {
         });
 
         tfPassword.addKeyListener(new KeyAdapter() {
+
             @Override
             public void keyReleased(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
                         new DatabaseConnection(tfUsername.getText(), tfPassword.getText());
                     } catch (SQLException throwables) {
@@ -72,8 +76,8 @@ public class LoginWindow {
 
     private void frameBehavior() {
 
-        frame.getContentPane().setLayout(new GridLayout(0,2));
-        frame.setPreferredSize(new Dimension(300,200));
+        frame.getContentPane().setLayout(new GridLayout(0, 2));
+        frame.setPreferredSize(new Dimension(300, 200));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 

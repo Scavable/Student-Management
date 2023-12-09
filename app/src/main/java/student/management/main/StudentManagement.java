@@ -1,7 +1,6 @@
 package student.management.main;
 
 import student.management.database.DatabaseSetup;
-import student.management.database.User;
 import student.management.gui.StudentManagementWindow;
 import student.management.gui.LoginWindow;
 
