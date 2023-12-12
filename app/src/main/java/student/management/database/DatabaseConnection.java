@@ -1,11 +1,13 @@
 package student.management.database;
 //Classes
-import student.management.main.StudentManagement;
-import student.management.gui.LoginWindow;
 
-//Libraries
+import student.management.gui.LoginWindow;
+import student.management.main.StudentManagement;
+
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnection {
@@ -37,15 +39,5 @@ public class DatabaseConnection {
             String[] temp = e.getMessage().split("@");
             System.out.println(temp[0]);
         }
-    }
-
-    public static ResultSet Query(String query) throws SQLException {
-
-        ResultSet rs = con.createStatement().executeQuery(query);
-        while(rs.next()){
-            System.out.println(rs.getString(1));
-        }
-
-        return null;
     }
 }

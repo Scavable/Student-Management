@@ -1,12 +1,10 @@
 package student.management.gui.actions;
 
-import com.mysql.cj.xdevapi.Statement;
-import student.management.database.DatabaseConnection;
+import student.management.scripts.sql.preset.StudentsViewAll;
 
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class ButtonActions {
 
@@ -25,7 +23,7 @@ public class ButtonActions {
     public static ActionListener viewAction () {
         return e -> {
             try {
-                DatabaseConnection.Query("select * from students;");
+                ResultSet rs = StudentsViewAll.StudentsViewAll();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
