@@ -22,6 +22,7 @@ public class DatabaseSetup {
             if(con != null)
                 System.out.println("Connect successful to schema");
             CreatePresetTables();
+            CreateUsers();
         } catch (SQLException e) {
             try {
                 con = DriverManager.getConnection(properties.getProperty("databaseRoot"), properties.getProperty("userRoot"), properties.getProperty("userRootPassword"));
@@ -63,11 +64,26 @@ public class DatabaseSetup {
         usersSql.add("create user ".concat(users.get(1)).concat(";"));
         usersSql.add("create user ".concat(users.get(2)).concat(";"));
 
+        try {
+            for(String temp: usersSql){
+                con.createStatement().execute(temp);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         GrantPrivilege(users);
     }
 
     private void GrantPrivilege(List<String> users){
-
+        String tableCreatorPriv = "grant create on student_management to ".concat(users.get(Users.table_creator.ordinal())).concat(";");
+        try {
+            con.createStatement().execute(tableCreatorPriv);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void AssignPrivileges(List<String> users){
