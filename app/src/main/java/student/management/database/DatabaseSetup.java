@@ -43,6 +43,41 @@ public class DatabaseSetup {
         }
     }
 
+    enum Users{
+        table_creator,
+        table_populater,
+        table_data_updater;
+    }
+
+    /**
+     * Create specific users for certain tasks
+     */
+    private void CreateUsers(){
+        List<String> users = new LinkedList<>();
+        users.add(Users.table_creator.ordinal(), Users.table_creator.name());
+        users.add(Users.table_populater.ordinal(), Users.table_populater.name());
+        users.add(Users.table_data_updater.ordinal(), Users.table_data_updater.name());
+
+        List<String> usersSql = new LinkedList<>();
+        usersSql.add("create user ".concat(users.get(0)).concat(";"));
+        usersSql.add("create user ".concat(users.get(1)).concat(";"));
+        usersSql.add("create user ".concat(users.get(2)).concat(";"));
+
+        GrantPrivilege(users);
+    }
+
+    private void GrantPrivilege(List<String> users){
+
+    }
+
+    private void AssignPrivileges(List<String> users){
+        List<String> privileges = new LinkedList<>();
+
+    }
+
+    /**
+     * Create preset tables
+     */
     private void CreatePresetTables() {
         List<String> tables = getTables();
 
@@ -106,6 +141,9 @@ public class DatabaseSetup {
         return list;
     }
 
+    /**
+     * Services
+     */
     private static void StartService() {
         try {
             InputStream input = Runtime.getRuntime().exec("cmd.exe /c sc query "+serviceName).getInputStream();
