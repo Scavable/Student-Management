@@ -44,7 +44,7 @@ public class DatabaseSetup {
     }
 
     private void CreatePresetTables() {
-        List<String> tables = getStrings();
+        List<String> tables = getTables();
 
         try {
             ResultSet rs = con.createStatement().executeQuery("show tables;");
@@ -59,7 +59,7 @@ public class DatabaseSetup {
 
     }
 
-    private static List<String> getStrings() {
+    private static List<String> getTables() {
         String createStudentsTable = """
                 Create Table students (
                     id int auto_increment,
