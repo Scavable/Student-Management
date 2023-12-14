@@ -3,6 +3,8 @@ package student.management.database;
 import javax.swing.*;
 import java.io.*;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +21,7 @@ public class DatabaseSetup {
             con = DriverManager.getConnection(properties.getProperty("databaseStudentManagement"), properties.getProperty("userRoot"), properties.getProperty("userRootPassword"));
             if(con != null)
                 System.out.println("Connect successful to schema");
-            CreateTables();
+            CreatePresetTables();
         } catch (SQLException e) {
             try {
                 con = DriverManager.getConnection(properties.getProperty("databaseRoot"), properties.getProperty("userRoot"), properties.getProperty("userRootPassword"));
@@ -41,24 +43,67 @@ public class DatabaseSetup {
         }
     }
 
-    private void CreateTables() {
-        System.out.println("Create Tables Method");
-        String studentsTable = """
-                Create Table students (
-                    id int primary key auto_increment,
-                    first_name varchar(25) not null,
-                    last_name varchar(25) not null
-                );
-                """;
+    private void CreatePresetTables() {
+        List<String> tables = getStrings();
+
         try {
             ResultSet rs = con.createStatement().executeQuery("show tables;");
             if(!rs.next()){
-                con.createStatement().executeUpdate(studentsTable);
+                for(String table: tables) {
+                    con.createStatement().executeUpdate(table);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static List<String> getStrings() {
+        String createStudentsTable = """
+                Create Table students (
+                    id int auto_increment,
+                    first_name varchar(25) not null,
+                    last_name varchar(25) not null,
+                    major varchar(50) not null,
+                    primary key (id)
+                );
+                """;
+        String createCoursesTable = """
+                Create Table courses (
+                    id int auto_increment,
+                    title varchar(50) not null,
+                    level int not null,
+                    capacity int not null,
+                    professor varchar(25) not null,
+                    teacher_assistant varchar(25),
+                    primary key (id)
+                );
+                """;
+        String createEnrolledTable = """
+                Create Table enrolled (
+                    id int auto_increment,
+                    student_id int,
+                    course_id int,
+                    primary key (id),
+                    foreign key (student_id) references students(id),
+                    foreign key (course_id) references courses(id)
+                );
+                """;
+        String createGradesTable = """
+                
+                """;
+        String createCreditsTable = """
+                
+                """;
+
+        List<String> list = new LinkedList<>();
+        list.add(createStudentsTable);
+        list.add(createCoursesTable);
+        list.add(createEnrolledTable);
+        list.add(createGradesTable);
+        list.add(createCreditsTable);
+        return list;
     }
 
     private static void StartService() {

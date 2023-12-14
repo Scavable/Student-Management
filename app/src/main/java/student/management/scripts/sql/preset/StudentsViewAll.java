@@ -1,17 +1,17 @@
 package student.management.scripts.sql.preset;
 
-import student.management.database.DatabaseConnection;
-import student.management.database.User;
+import student.management.scripts.sql.SQLInterface;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class StudentsViewAll {
+public class StudentsViewAll implements SQLInterface {
     static String query = "select * from students;";
-    public static ResultSet StudentsViewAll() throws SQLException {
+
+    @Override
+    public ResultSet Query(Connection con) throws SQLException {
         ResultSet rs = null;
-        Connection con = User.getCon();
         if(con.isValid(5)){
             System.out.println("User Connection Is Alive");
             rs = con.createStatement().executeQuery(query);
